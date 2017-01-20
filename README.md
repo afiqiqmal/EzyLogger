@@ -2,8 +2,32 @@
 Simple Logger for Android
 
 
+[![](https://jitpack.io/v/afiqiqmal/EzyLogger-Android.svg)](https://jitpack.io/#afiqiqmal/EzyLogger-Android)
+
+
 ### Gradle
 
+```grovvy
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+    }
+}
+
+dependencies {
+    compile 'com.github.afiqiqmal:EzyLogger-Android:1.0.0'
+}
+```
+
+### Maven
+```grovvy
+<dependency>
+	<groupId>com.github.afiqiqmal</groupId>
+	<artifactId>EzyLogger-Android</artifactId>
+	<version>1.0.0</version>
+</dependency>
+```
 
 
 ### How to use:
