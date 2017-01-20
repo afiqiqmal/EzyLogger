@@ -10,28 +10,10 @@ import android.preference.PreferenceManager;
 
 public class Logger {
 
-    public static class Builder {
-        Context context = null;
-        String tag = null;
-        boolean canshow = true;
-        public Builder(Context context){
-            this.context = context;
-        }
+    Logger(){}
 
-        public Builder setTag(String tag){
-            this.tag = tag;
-            return this;
-        }
-
-        public Builder enableLog(boolean enable){
-            this.canshow = enable;
-            return this;
-        }
-
-        public void create(){
-            initTag(context,tag);
-            canShowLog(canshow);
-        }
+    public static void init(Context context){
+        LogPrint.setContext(context);
     }
 
     public static void initTag(Context context, String tag){
@@ -149,10 +131,36 @@ public class Logger {
         LogPrint.showToast(message,1);
     }
 
-    public static void LongToast(String message){
+    public static void longToast(String message){
         LogPrint.showToast(message,2);
     }
 
+
+
+
+    public static class Builder {
+        Context context = null;
+        String tag = null;
+        boolean canshow = true;
+        public Builder(Context context){
+            this.context = context;
+        }
+
+        public Builder setTag(String tag){
+            this.tag = tag;
+            return this;
+        }
+
+        public Builder enableLog(boolean enable){
+            this.canshow = enable;
+            return this;
+        }
+
+        public void create(){
+            initTag(context,tag);
+            canShowLog(canshow);
+        }
+    }
 
     public static class Preference{
         String name = null;

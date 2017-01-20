@@ -1,5 +1,6 @@
 package com.logger.min.easylogger;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,6 +35,7 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by hafiq on 18/01/2017.
  */
 
+@SuppressLint("StaticFieldLeak")
 class LogPrint {
 
     private static String TAG = "EzyLogger";
@@ -43,6 +45,10 @@ class LogPrint {
 
     private static final int JSON_INDENT = 2;
     private static String PREF_NAME = null;
+
+    static void setContext(Context con){
+        context = con;
+    }
 
     static void setTag(String tag){
         TAG = (tag!=null)? tag : TAG;
@@ -106,7 +112,9 @@ class LogPrint {
                 else
                     prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-                convertLinkedHashMap(castMap(prefs.getAll()), LogLevel.DEBUG);
+                if(prefs.getAll() != null) {
+                    convertLinkedHashMap(castMap((LinkedHashMap)prefs.getAll()), LogLevel.DEBUG);
+                }
             } else {
                 throw new Exception("Context Cannot be Null");
             }
@@ -211,26 +219,27 @@ class LogPrint {
     }
 
     static void print(Object message,LogLevel level){
-        if (message instanceof String){
-            possibleXmlorJsonorString(message.toString(),level);
+        try {
+            if (message instanceof String) {
+                possibleXmlorJsonorString(message.toString(), level);
+            } else if (message instanceof Map) {
+                convertLinkedHashMap(castMap(message), level);
+            } else if (message instanceof Bundle) {
+                convertBundleString(message, level);
+            } else if (message instanceof Intent) {
+                convertBundleString(((Intent) message).getExtras(), level);
+            } else if (message instanceof List<?>) {
+                convertListString(castList(message), level);
+            } else if (message instanceof Integer || message instanceof Float || message instanceof Double){
+                log(message.toString(), level);
+            } else if (message instanceof Array[] || message instanceof Object[] || message.getClass().getComponentType().isPrimitive()) {
+                convertArraytoString(message, level);
+            } else {
+                log(message.toString(), level);
+            }
         }
-        else if (message instanceof Map){
-            convertLinkedHashMap(castMap(message),level);
-        }
-        else if (message instanceof Bundle){
-            convertBundleString(message,level);
-        }
-        else if (message instanceof Intent){
-            convertBundleString(((Intent) message).getExtras(),level);
-        }
-        else if (message instanceof List<?>){
-            convertListString(castList(message),level);
-        }
-        else if ( message instanceof Array[] || message instanceof Object[] || message.getClass().getComponentType().isPrimitive()){
-            convertArraytoString(message,level);
-        }
-        else{
-            log(message.toString(),level);
+        catch (Exception e){
+            log("[ERROR] => "+e.getMessage(),LogLevel.ERROR);
         }
     }
 
@@ -271,30 +280,30 @@ class LogPrint {
     }
 
     private static void convertArraytoString(Object obj,LogLevel level){
-        log(showline(),level);
-        try {
+        if (obj!=null) {
+            log(showline(), level);
             Object[] getObj = convertToObjectArray(obj);
-            if (getObj != null && getObj.length>0) {
+            if (getObj != null && getObj.length > 0) {
                 for (Object object : getObj) {
                     log("[ARRAY] : " + object.toString(), level);
                 }
                 log("[ARRAY] : Total Item : " + getObj.length, level);
+            } else {
+                log("[ARRAY] : Array Given is Empty or Null", level);
             }
-            else{
-                log("[ARRAY] : Array Given is Empty or Null",level);
-            }
-        }
-        catch (Exception e){
-            log("[ARRAY] : Error =>"+ e.getMessage(),LogLevel.ERROR);
-        }
 
-        log(showline(),level);
+            log(showline(), level);
+        }
+        else {
+            log("[ARRAY] : Array Given is Empty or Null", LogLevel.WARN);
+        }
     }
 
     private static void convertBundleString(Object obj,LogLevel level){
-        if (obj instanceof Bundle) {
+        if (obj != null && obj instanceof Bundle) {
             log(showline(),level);
             Bundle bundle = (Bundle)obj;
+            int x=0;
             for (String entry : bundle.keySet()) {
                 try {
                     Object value = bundle.get(entry);
@@ -303,87 +312,102 @@ class LogPrint {
                     }
                 }
                 catch (Exception e){
-                    log("[BUNDLE] : Error => "+e.getMessage(),LogLevel.ERROR);
+                    log("[BUNDLE] : Error Key => '"+entry+"'",LogLevel.ERROR);
                 }
+                x++;
             }
+            log("[BUNDLE] : Size Item => "+x,level);
             log(showline(),level);
         }
         else{
-            log("[BUNDLE] : Error => Not Bundle Type or Null",LogLevel.ERROR);
+            log("[BUNDLE] : Error => Not Bundle Type or Null",LogLevel.WARN);
         }
     }
 
     private static void convertListString(List<?> list, LogLevel level){
-        log(showline(),level);
-        try {
-            if (list!=null) {
+        if (list!=null) {
+            log(showline(),level);
+            try {
                 log("[LIST] : Object Name ( " + list.getClass().getSimpleName() + " )", level);
                 for (Object obj : list) {
                     log("   [LIST] : [" + obj.toString() + "]", level);
                 }
                 log("[LIST] : Total Item : " + list.size(), level);
             }
-            else{
-                log("[LIST] : List is null",LogLevel.WARN);
+            catch (Exception e){
+                log("[LIST] : Error => "+e.getMessage(),LogLevel.ERROR);
             }
+            log(showline(),level);
         }
-        catch (Exception e){
-            log("[LIST] : Error => "+e.getMessage(),LogLevel.ERROR);
+        else{
+            log("[LIST] : List is null",LogLevel.WARN);
         }
-        log(showline(),level);
     }
 
     private static void convertLinkedHashMap(LinkedHashMap<String,?> message,LogLevel level){
-        log(showline(),level);
-        try {
+        if (message!=null) {
+            log(showline(), level);
             for (Map.Entry<String, ?> entry : message.entrySet()) {
-                log("   [MAP] : [" + entry.getKey() + "] => [" + entry.getValue() + "]", level);
+                try {
+                    log("[MAP] : [" + entry.getKey() + "] => [" + entry.getValue() + "]", level);
+                } catch (Exception e) {
+                    log("[MAP] : Error Key => '" + entry.getKey()+"'", LogLevel.ERROR);
+                }
             }
+
+            log(showline(), level);
         }
-        catch (Exception e){
-            log("[MAP] : Error => "+e.getMessage(),LogLevel.ERROR);
+        else{
+            log("[MAP] : Map is Null",LogLevel.WARN);
         }
-        log(showline(),level);
     }
 
     private static void prettyPrintJsonString(String json,LogLevel level){
 
-        log(showline(),level);
-        try {
-            json = json.trim();
-            if (json.startsWith("{")) {
-                JSONObject jsonObject = new JSONObject(json);
-                log(jsonObject.toString(JSON_INDENT),level);
-            }
-            else if (json.startsWith("[")) {
-                JSONArray jsonArray = new JSONArray(json);
-                log(jsonArray.toString(JSON_INDENT),level);
-            }
-            else{
-                log("[JSON] : Error => Wrong JSON Format",LogLevel.ERROR);
-            }
+        if (isJSONValid(json)) {
+            log(showline(), level);
+            try {
+                json = json.trim();
+                if (json.startsWith("{")) {
+                    JSONObject jsonObject = new JSONObject(json);
+                    log(jsonObject.toString(JSON_INDENT), level);
+                } else if (json.startsWith("[")) {
+                    JSONArray jsonArray = new JSONArray(json);
+                    log(jsonArray.toString(JSON_INDENT), level);
+                } else {
+                    log("[JSON] : Error => Wrong JSON Format", LogLevel.ERROR);
+                }
 
-        } catch (Exception e) {
-            log("[JSON] : Error => Wrong JSON Format [ "+e.getMessage()+" ]",LogLevel.ERROR);
+            } catch (Exception e) {
+                log("[JSON] : Error => [ " + e.getMessage() + " ]", LogLevel.ERROR);
+            }
+            log(showline(), level);
         }
-        log(showline(),level);
+        else{
+            log("[JSON] : Error => Wrong JSON Format", LogLevel.WARN);
+        }
     }
 
     private static void prettyPrintXMLString(String xml,LogLevel level) {
-        log(showline(),level);
-        try {
-            Source xmlInput = new StreamSource(new StringReader(xml));
-            StreamResult xmlOutput = new StreamResult(new StringWriter());
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-            transformer.transform(xmlInput, xmlOutput);
-            log(xmlOutput.getWriter().toString().replaceFirst(">", ">\n"),level);
-        } catch (TransformerException e) {
-            log("[XML] : Error => Wrong XML Format [ "+e.getMessage()+" ]",LogLevel.ERROR);
-        }
+        if (isValidXML(xml)) {
+            log(showline(), level);
+            try {
+                Source xmlInput = new StreamSource(new StringReader(xml));
+                StreamResult xmlOutput = new StreamResult(new StringWriter());
+                Transformer transformer = TransformerFactory.newInstance().newTransformer();
+                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+                transformer.transform(xmlInput, xmlOutput);
+                log(xmlOutput.getWriter().toString().replaceFirst(">", ">\n"), level);
+            } catch (TransformerException e) {
+                log("[XML] : Error => Wrong XML Format [ " + e.getMessage() + " ]", LogLevel.ERROR);
+            }
 
-        log(showline(),level);
+            log(showline(), level);
+        }
+        else{
+            log("[XML] : Error => Wrong XML Format ", LogLevel.WARN);
+        }
     }
 
     private static void possibleXmlorJsonorString(String input,LogLevel level){

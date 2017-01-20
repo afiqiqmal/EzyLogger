@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/EzyLogger.iml" filepath="$PROJECT_DIR$/EzyLogger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EzyLogger-Android.iml" filepath="$PROJECT_DIR$/EzyLogger-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/easylogger/easylogger.iml" filepath="$PROJECT_DIR$/easylogger/easylogger.iml" />
       <module fileurl="file://$PROJECT_DIR$/ezylogger2/ezylogger2.iml" filepath="$PROJECT_DIR$/ezylogger2/ezylogger2.iml" />
