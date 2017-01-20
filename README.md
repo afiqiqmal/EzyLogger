@@ -16,7 +16,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.afiqiqmal:EzyLogger-Android:1.0.0'
+    compile 'com.github.afiqiqmal:EzyLogger:1.0.0'
 }
 ```
 
@@ -24,7 +24,7 @@ dependencies {
 ```grovvy
 <dependency>
 	<groupId>com.github.afiqiqmal</groupId>
-	<artifactId>EzyLogger-Android</artifactId>
+	<artifactId>EzyLogger</artifactId>
 	<version>1.0.0</version>
 </dependency>
 ```
