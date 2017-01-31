@@ -7,7 +7,6 @@ package com.logger.min.easylogger;
 public enum LogLevel {
     DEBUG,
     ERROR,
-    ASSERT,
     INFO,
     VERBOSE,
     WARN,
