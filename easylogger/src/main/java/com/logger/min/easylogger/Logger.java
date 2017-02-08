@@ -37,6 +37,11 @@ public class Logger {
     }
 
 
+    public static void info(String tag,String message){
+        LogPrint.setTag(tag);
+        info(message);
+    }
+
     public static void info(String message){
         LogPrint.i(message);
     }
@@ -49,6 +54,12 @@ public class Logger {
         LogPrint.print(message,format,LogLevel.INFO);
     }
 
+
+
+    public static void debug(String tag,String message){
+        LogPrint.setTag(tag);
+        debug(message);
+    }
 
     public static void debug(String message){
         LogPrint.d(message);
@@ -64,6 +75,11 @@ public class Logger {
 
 
 
+    public static void warn(String tag,String message){
+        LogPrint.setTag(tag);
+        warn(message);
+    }
+
     public static void warn(String message){
         LogPrint.w(message);
     }
@@ -77,6 +93,11 @@ public class Logger {
     }
 
 
+
+    public static void error(String tag,String message){
+        LogPrint.setTag(tag);
+        error(message);
+    }
 
     public static void error(String message){
         LogPrint.e(message);
@@ -99,6 +120,10 @@ public class Logger {
     }
 
 
+    public static void verbose(String tag,String message){
+        LogPrint.setTag(tag);
+        verbose(message);
+    }
 
     public static void verbose(String message){
         LogPrint.v(message);
@@ -113,6 +138,11 @@ public class Logger {
     }
 
 
+
+    public static void wtf(String tag,String message){
+        LogPrint.setTag(tag);
+        wtf(message);
+    }
 
     public static void wtf(String message){
         LogPrint.wtf(message);
