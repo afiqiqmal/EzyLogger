@@ -16,7 +16,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.afiqiqmal:EzyLogger:1.0.0'
+    compile 'com.github.afiqiqmal:EzyLogger:1.0.1'
 }
 ```
 
@@ -25,7 +25,7 @@ dependencies {
 <dependency>
 	<groupId>com.github.afiqiqmal</groupId>
 	<artifactId>EzyLogger</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 </dependency>
 ```
 
@@ -59,6 +59,7 @@ Logger use
 ```java
 
 //info log
+Logger.info(TAG,"message"); // can set TAG here if not using initTag
 Logger.info("message");
 Logger.info(Object);
 Logger.info(Object,Format); // JSON, XML,LIST, MAP, BUNDLE, STRING, INTENT, ARRAY
