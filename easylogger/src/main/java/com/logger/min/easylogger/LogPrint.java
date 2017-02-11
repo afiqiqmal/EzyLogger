@@ -1,6 +1,7 @@
 package com.logger.min.easylogger;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -446,7 +447,7 @@ class LogPrint {
         return "====================================================================";
     }
 
-    static void showToast(String message, int type){
+    static void showToast(Activity activity, String message, int type){
         try {
             if (context != null) {
                 if (type == 1) {
@@ -455,7 +456,15 @@ class LogPrint {
                     Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                 }
             } else {
-                throw new Exception("Context Cannot be Null");
+                if (activity != null){
+                    if (type == 1) {
+                        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+                    } else if (type == 2) {
+                        Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
+                    }
+                }
+                else
+                    throw new Exception("Context Cannot be Null");
             }
         }
         catch (Exception e){

@@ -1,5 +1,6 @@
 package com.logger.min.easylogger;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -157,17 +158,27 @@ public class Logger {
     }
 
 
+
+
     public static void shortToast(String message){
-        LogPrint.showToast(message,1);
+        LogPrint.showToast(null,message,1);
     }
 
     public static void longToast(String message){
-        LogPrint.showToast(message,2);
+        LogPrint.showToast(null,message,2);
     }
 
 
+    public static void shortToast(Activity activity, String message){
+        LogPrint.showToast(activity,message,1);
+    }
+
+    public static void longToast(Activity activity,String message){
+        LogPrint.showToast(activity,message,2);
+    }
 
 
+    
     public static class Builder {
         Context context = null;
         String tag = null;
