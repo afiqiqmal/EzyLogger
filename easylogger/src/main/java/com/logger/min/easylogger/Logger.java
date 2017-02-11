@@ -178,7 +178,7 @@ public class Logger {
     }
 
 
-    
+
     public static class Builder {
         Context context = null;
         String tag = null;

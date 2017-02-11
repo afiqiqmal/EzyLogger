@@ -22,5 +22,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // INIT
+        Logger.init(this);
+        Logger.canShowLog(BuildConfig.DEBUG);
+        Logger.initTag("LOG");
+        //Logger.initTag(this,"LOG");
+
+        // OR
+
+        new Logger.Builder(this).setTag("LOG").enableLog(BuildConfig.DEBUG).create();
+
+        // END INIT
+
+
+        // print tag name
+        Logger.printTag();
+        // get tag name
+        Logger.getTag();
+
     }
 }
