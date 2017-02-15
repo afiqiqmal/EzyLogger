@@ -198,8 +198,12 @@ public class Logger {
         }
 
         public void create(){
-            initTag(context,tag);
-            canShowLog(canshow);
+            if (tag == null)
+                LogPrint.setContext(context);
+            else
+                LogPrint.setTag(context,tag);
+
+            LogPrint.canShowLog(canshow);
         }
     }
 
