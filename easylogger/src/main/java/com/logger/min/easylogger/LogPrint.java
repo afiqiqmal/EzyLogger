@@ -41,7 +41,7 @@ class LogPrint {
 
     private static String TAG = "EzyLogger";
     private static Context context;
-    private static boolean DEBUG = true;
+    private static boolean DEBUG = false;
 
 
     private static final int JSON_INDENT = 2;
