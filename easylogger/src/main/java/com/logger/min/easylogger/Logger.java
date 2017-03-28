@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 /**
- * Created by hafiq on 18/01/2017.
+ * @author : hafiq on 18/01/2017.
  */
 
 public class Logger {
