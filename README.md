@@ -2,7 +2,7 @@
 Simple Logger for Android
 
 
-[![](https://jitpack.io/v/afiqiqmal/EzyLogger-Android.svg)](https://jitpack.io/#afiqiqmal/EzyLogger-Android)
+[![](https://jitpack.io/v/afiqiqmal/EzyLogger.svg)](https://jitpack.io/#afiqiqmal/EzyLogger)
 
 
 ### Gradle
@@ -16,7 +16,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.afiqiqmal:EzyLogger:1.0.1'
+    compile 'com.github.afiqiqmal:EzyLogger:1.1.0'
 }
 ```
 
