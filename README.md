@@ -25,7 +25,7 @@ dependencies {
 <dependency>
 	<groupId>com.github.afiqiqmal</groupId>
 	<artifactId>EzyLogger</artifactId>
-	<version>1.0.1</version>
+	<version>1.1.0</version>
 </dependency>
 ```
 
