@@ -29,6 +29,7 @@ dependencies {
 </dependency>
 ```
 
+[![](https://s2.postimg.org/p1t1p1ebd/Screen_Shot_2017-04-20_at_11.53.28_AM.png)](http://www.methodscount.com/?lib=com.github.afiqiqmal%3AEzyLogger%3A1.1.0)
 
 ### How to use:
 
