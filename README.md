@@ -3,6 +3,7 @@ Simple Logger for Android
 
 
 [![](https://jitpack.io/v/afiqiqmal/EzyLogger.svg)](https://jitpack.io/#afiqiqmal/EzyLogger)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/mhi9388?locale.x=en_US)
 
 
 ### Gradle
@@ -154,3 +155,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 </pre>
+
+
+
+<a href="https://www.paypal.com/paypalme/mhi9388?locale.x=en_US"><img src="https://i.imgur.com/Y2gqr2j.png" height="40"></a>  
